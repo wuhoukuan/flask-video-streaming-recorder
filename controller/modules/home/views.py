@@ -21,8 +21,10 @@ def video_stream():
     global video_camera
     global global_frame
 
+
     if video_camera is None:
         video_camera = VideoCamera()
+
 
     while True:
         frame = video_camera.get_frame()

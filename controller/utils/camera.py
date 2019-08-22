@@ -1,6 +1,6 @@
 import cv2
 import threading
-
+URL  =  "rtsp://admin:hk123456@192.168.1.180:554/h264/ch1/main/av_stream"
 
 class RecordingThread(threading.Thread):
     def __init__(self, name, camera):
@@ -30,7 +30,24 @@ class RecordingThread(threading.Thread):
 class VideoCamera(object):
     def __init__(self):
         # 打开摄像头， 0代表笔记本内置摄像头
-        self.cap = cv2.VideoCapture(0)
+        # self.cap = cv2.VideoCapture(URL)
+
+        self.cap = cv2.VideoCapture(URL)
+        try:
+            while True:
+                ret, frame = self.cap.read()
+
+
+
+                cv2.imshow("test", frame)
+                key = cv2.waitKey(60) & 0xff
+                if key == 25:
+                    break
+
+
+        except Exception as f:
+            print(f)
+            print("________end________")
 
         # 初始化视频录制环境
         self.is_record = False
@@ -41,8 +58,9 @@ class VideoCamera(object):
 
     # 退出程序释放摄像头
     def __del__(self):
+        # self.cap.release()
         self.cap.release()
-
+        cv2.destroyAllWindows()
     def get_frame(self):
         ret, frame = self.cap.read()
 
