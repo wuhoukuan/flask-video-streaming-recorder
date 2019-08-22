@@ -1,6 +1,8 @@
 import cv2
 import threading
-URL  =  "rtsp://admin:hk123456@192.168.1.180:554/h264/ch1/main/av_stream"
+
+from controller.utils.contants import URL
+
 
 class RecordingThread(threading.Thread):
     def __init__(self, name, camera):
